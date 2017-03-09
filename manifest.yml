@@ -1,0 +1,13 @@
+applications:
+- path: .
+  memory: 256M
+  instances: 1
+  domain: mybluemix.net
+  name: mjdavis-Z2CV2
+  host: mjdavis-Z2CV2
+  disk_quota: 1024M
+  services:
+  - Speech to Text-q8
+  - Text to Speech-6t
+  - Conversation-cn
+  - Cloudant NoSQL DB-8b
