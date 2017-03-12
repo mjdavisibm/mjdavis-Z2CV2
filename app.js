@@ -15,11 +15,13 @@ var appEnv = cfenv.getAppEnv();
 // create a new express server
 var app = express();
 
-
-// prepare server for bootstrap use
+// prepare server for bootstrap and jQuery use
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
+
+// set up watson speech service
+app.use('/js', express.static(__dirname + '/node_modules/watson-speech/')); // redirect CSS bootstrap
 
 // set some defaults values for express
 app.use(cookieParser());
@@ -51,6 +53,9 @@ app.use(bodyParser.json());
  * assumes index.html
  */
 app.use(express.static(__dirname + '/HTML'));
+
+// Define your own router file in controller folder, export the router, add it into the index.js.
+app.use('/', require("./controller/restapi/router"));
 
 app.listen(app.get('port'),
     function(req, res) {

@@ -1,26 +1,84 @@
-<!DOCTYPE html>
 <html>
 
-  <head>
-    <title>NodeJS Starter Application</title>
+<head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="stylesheets/style.css">
-  </head>
+    <meta name="description" content="Chapter 3, writing your first Bluemix App">
+    <meta name="author" content="Bob Dill, IBM Distinguished Engineer">
 
-  <body>
-    <table>
-      <tr>
-        <td style= "width:30%;">
-          <img class = "newappIcon" src="images/newapp-icon.png">
-        </td>
-        <td>
-          <h1 id="message">Hello World!</h1>
-          <p class='description'></p> Thanks for creating a <span class = "blue">NodeJS Starter Application</span>.
-        </td>
-      </tr>
-    </table>
-  </body>
+    <title>Learn Bluemix Now!</title>
+
+</head>
+
+<body class="tutorial" onLoad="initPage()">
+    <div class="cover">
+        <div class="navbar">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse" style="background-color: #E0E0E0">
+                            <span class="sr-only" >Toggle navigation</span>
+                            <span class="icon-bar" ></span>
+                            <span class="icon-bar" ></span>
+                            <span class="icon-bar" ></span>
+                        </button>
+                    <a class="navbar-brand" href="#" style="color: #008571;"><span>Zero to Cognitive Tutorial</span></a>
+                </div>
+                <div class="collapse navbar-collapse" id="navbar-ex-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="active">
+                            <a href="#">Home</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container" , id="top">
+            <div class="app_container" id="body">
+                <div class="row">
+                    <div class="col-md-6 text-center" style="color: #008571; ">
+                        <h1>Chapter 3: Creating your first Watson app</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <br/>
+                    <div class="col-md-6">
+                        <center>
+                          <img src="icons/microphone.png">
+                          <label class="switch">
+                            <input id="microphone" type="checkbox">
+                            <div class="slider round"></div>
+                          </label>
+                        </center>
+                    </div>
+                    <br/>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <center>
+                            <div cols="50" class="speech-only" id="speech" readonly wrap="soft">Spoken output goes here</div>
+                        </center>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    <!-- Ensure the Javascript for Bootstrap, jQuery, and watson are sent to browser -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/watson-speech.min.js"></script>
+
+    <!-- Add the javascript for this html age -->
+    <script src="js/z2c-speech.js"></script>
+
+    <link href="font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="css/pageStyles.css" rel="stylesheet" type="text/css">
+
+</body>
 
 </html>
