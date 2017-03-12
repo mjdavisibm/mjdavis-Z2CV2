@@ -1,28 +1,58 @@
-/*eslint-env node*/
-
-//------------------------------------------------------------------------------
-// node.js starter application for Bluemix
-//------------------------------------------------------------------------------
-
-// This application uses express as its web server
-// for more info, see: http://expressjs.com
 var express = require('express');
-
-// cfenv provides access to your Cloud Foundry environment
-// for more info, see: https://www.npmjs.com/package/cfenv
+var http = require('http');
+var path = require('path');
+var fs = require('fs');
+var mime = require('mime');
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 var cfenv = require('cfenv');
+var vcapServices = require('vcap_services');
+var jQuery = require('jquery');
+
+// get the app environment from Cloud Foundry (Bluemix)
+var appEnv = cfenv.getAppEnv();
 
 // create a new express server
 var app = express();
 
-// serve the files out of ./public as our main files
-app.use(express.static(__dirname + '/public'));
 
-// get the app environment from Cloud Foundry
-var appEnv = cfenv.getAppEnv();
+// prepare server for bootstrap use
+app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
+app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery
+app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
 
-// start server on the specified port and binding host
-app.listen(appEnv.port, '0.0.0.0', function() {
-  // print a message when the server starts listening
-  console.log("server starting on " + appEnv.url);
-});
+// set some defaults values for express
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(bodyParser.json());
+app.set('appName', appEnv.name);
+// disable the following line in Bluemix. App will start on port 6003 in Bluemix
+//app.set('port', process.env.PORT || 6003);
+// enable the following line in Bluemix
+app.set('port', appEnv.port);
+app.set('views', path.join(__dirname + '/HTML'));
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'ejs');
+app.use(bodyParser.json());
+
+//
+// Important stuff starts here
+//
+
+/* This tells express to set all device cenrtric code,
+ * i.e. the code that goes to the browsers
+ * to be in a particular folder. In this case it is in
+ * ./HTML
+ *
+ * As we do not explicitly state what file should be returned
+ * when  localhost:<port> is entered into a browser express
+ * assumes index.html
+ */
+app.use(express.static(__dirname + '/HTML'));
+
+app.listen(app.get('port'),
+    function(req, res) {
+        console.log(app.get('appName') + ' is listening on port: ' + app.get('port'));
+    });
